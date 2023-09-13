@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cr3pmorfeagp"]
+
+[ext_resource type="Script" path="res://assets/buttons/main_menu/button_main_menu.gd" id="1_5wlry"]
+
+[node name="MainMenu" type="Button"]
+offset_right = 83.0
+offset_bottom = 31.0
+text = "huhu"
+script = ExtResource("1_5wlry")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

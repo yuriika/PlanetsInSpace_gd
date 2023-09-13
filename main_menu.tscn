@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://rnkxjm5mb385"]
+
+[ext_resource type="PackedScene" uid="uid://380owrqy2y7b" path="res://assets/buttons/quit/button_quit.tscn" id="1_cotda"]
+[ext_resource type="PackedScene" uid="uid://b5xcetoixhwkd" path="res://assets/buttons/back_universum/button_to_universum.tscn" id="2_vvjal"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 103.0
+offset_top = 55.0
+offset_right = 143.0
+offset_bottom = 78.0
+text = "huhu"
+
+[node name="Quit" parent="." instance=ExtResource("1_cotda")]
+layout_mode = 0
+
+[node name="button_to_universum" parent="." instance=ExtResource("2_vvjal")]
+layout_mode = 1
+offset_left = 157.0
+offset_top = 1.0
+offset_right = -870.0
+offset_bottom = -616.0

@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5xcetoixhwkd"]
+
+[ext_resource type="Script" path="res://assets/buttons/back_universum/button_to_universum.gd" id="1_n6jpv"]
+
+[node name="button_to_universum" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1006.0
+offset_bottom = -600.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Universum"
+script = ExtResource("1_n6jpv")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
