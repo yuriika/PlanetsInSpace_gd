@@ -1,12 +1,13 @@
 extends Node3D
 
-
+@export var planet_scene:PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("universum start..")
-	var planet_scene = load("res://Star.tscn")
+	
+	#var planet_scene = load("res://assets/Star.tscn")
 	var planet = planet_scene.instantiate()
-	planet.position.x = 2
+	planet.position.x = 1
 	add_child(planet)
 
 

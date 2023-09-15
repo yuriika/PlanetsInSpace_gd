@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="PlanetsInSpace_gd"
-run/main_scene="res://universum.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+run/main_scene="res://assets/scenes/universum.tscn"
+config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
