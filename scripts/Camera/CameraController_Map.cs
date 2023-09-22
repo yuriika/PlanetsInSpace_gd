@@ -21,6 +21,11 @@ namespace PlanetsInSpace.Map.Camera
         public float MaxZoom { get; set; } = 200;
 
         [Export]
+        public float ZoomFactor { get; set; } = 0.05f;
+
+        [Export]
+        public float ZoomDuration { get; set; } = 0.2f;
+
         public bool InvverseZoom { get; set; } = false;
 
         // Für die Ausrichtung des SelectionIcons
@@ -30,6 +35,7 @@ namespace PlanetsInSpace.Map.Camera
         Node3D panObject;
         Node3D rotationObject;
         Node3D zoomObject;
+        //Tween tween;
 
         // Used before _ready()
         public override void _Ready()
@@ -41,34 +47,29 @@ namespace PlanetsInSpace.Map.Camera
             zoomObject = this.GetChild<Node3D>(0).GetChild<Node3D>(0);
             //var initiate = Instance;
 
-            Print(rotationObject.Name);
-            Print(zoomObject.Name);
+
+
+            Print("RotationObject: " + rotationObject.Name);
+            Print("ZoomObject: " + zoomObject.Name);
 
             ResetCamera();
         }
-        // _process is called once per frame
-        //public override void _Process()
-        //{
-        //    ChangeZoom();
-        //    ChangePosition();
-        //}
 
         public void ResetCamera()
         {
             this.Position = Vector3.Zero;
-            //this.Translate(Vector3.Zero);
             zoomLevel = 0;
             rotationObject.RotationDegrees = new Vector3(ZoomedInAngle, 0, 0);
             currentAngle = rotationObject.Quaternion;
             zoomObject.Position = new Vector3(0, 0, MinZoom);
-            //zoomObject.Translate(new Vector3(0, 0, -MinZoom));
-
-
         }
 
+        // _process is called once per frame
         public override void _Process(double delta)
         {
-            Print(this.Position.ToString());
+            ChangeZoom();
+            //    ChangePosition();
+            //Print(this.Position.ToString());
             //this.Position = Vector3.Zero;
         }
 
@@ -107,27 +108,41 @@ namespace PlanetsInSpace.Map.Camera
         //    this.Transform.position = position;
         //}
 
-        //void ChangeZoom()
-        //{
-        //    if (Input.GetAxis("Mouse ScrollWheel") != 0)
-        //    {
-        //        if (!InvverseZoom)
-        //        {
-        //            zoomLevel = Mathf.Clamp01(zoomLevel - Input.GetAxis("Mouse ScrollWheel"));
-        //        }
-        //        else
-        //        {
-        //            zoomLevel = Mathf.Clamp01(zoomLevel + Input.GetAxis("Mouse ScrollWheel"));
-        //        }
+        void ChangeZoom()
+        {
 
-        //        float zoom = Mathf.Lerp(-MinZoom, -MaxZoom, zoomLevel);
-        //        zoomObject.Transform.localPosition = new Vector3(0, 0, zoom);
+            if (Input.IsActionPressed("Left"))
+            {
+                Print("Left");
+            }
+            if (Input.IsActionJustReleased("ScrollDown"))
+            {
+                zoomLevel = Mathf.Clamp(zoomLevel - ZoomFactor, 0, 1);
+                Print("Down");
+            }
+            if (Input.IsActionJustPressed("ScrollUp"))
+            {
+                zoomLevel = Mathf.Clamp(zoomLevel + ZoomFactor, 0, 1);
+                Print("Up");
+            }
 
-        //        // Wechselt smooth zwischen Draufsicht und angewinkelter Sicht
-        //        float zoomAngle = Mathf.Lerp(ZoomedInAngle, ZoomedOutAngle, zoomLevel);
-        //        rotationObject.Transform.localRotation = Quaternion.Euler(zoomAngle, 0, 0);
-        //    }
-        //}
+            float zoom = Mathf.Lerp(MinZoom, MaxZoom, zoomLevel);
+
+            Print("ZoomLevel: " + zoomLevel);
+            Print("Zoom: " + zoom);
+
+            var tween = zoomObject.CreateTween();
+            if (tween.IsRunning())
+            {
+                tween.TweenProperty(zoomObject, "position", new Vector3(0, 0, zoom), ZoomDuration);
+            }
+
+            // Wechselt smooth zwischen Draufsicht und angewinkelter Sicht
+            float zoomAngle = Mathf.Lerp(ZoomedInAngle, ZoomedOutAngle, zoomLevel);
+            Print("ZoomAngle: " + zoomAngle);
+            rotationObject.RotationDegrees = new Vector3(zoomAngle, 0, 0);
+
+        }
 
         //public void MoveTo(Vector3 position)
         //{

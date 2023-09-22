@@ -6,9 +6,9 @@ func _ready():
 	print("universum start..")
 	
 	#var planet_scene = load("res://assets/Star.tscn")
-	var planet = planet_scene.instantiate()
-	planet.position.x = 1
-	add_child(planet)
+	#var planet = planet_scene.instantiate()
+	#planet.position.x = 1
+	#add_child(planet)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

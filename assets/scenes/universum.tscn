@@ -38,15 +38,30 @@ metadata/tttttttt = 0
 script = ExtResource("5_gc251")
 
 [node name="RotationObject" type="Node3D" parent="PanObject"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="ZoomObject" type="Node3D" parent="PanObject/RotationObject"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
 
 [node name="Camera3D" type="Camera3D" parent="PanObject/RotationObject/ZoomObject"]
+current = true
 fov = 60.0
 near = 0.3
 far = 1000.0
 
 [node name="Star" parent="." instance=ExtResource("2_mrkly")]
-transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, 0.326909, -4.76837e-07, -0.0224032)
+transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -2.12234, -4.76837e-07, -5.01782)
+
+[node name="Star2" parent="." instance=ExtResource("2_mrkly")]
+transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, 3.59873, -4.76837e-07, 3.29069)
+
+[node name="Star3" parent="." instance=ExtResource("2_mrkly")]
+transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -9.25011, -4.76837e-07, 3.61899)
+
+[node name="Star4" parent="." instance=ExtResource("2_mrkly")]
+transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -9.34167, -4.76837e-07, -1.75762)
+
+[node name="Star5" parent="." instance=ExtResource("2_mrkly")]
+transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -8.79147, 0, 9.891)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.753563, 0, 0.657375, 0, 1, 0, -0.657375, 0, 0.753563, 0, 10.4825, -11.9344)
