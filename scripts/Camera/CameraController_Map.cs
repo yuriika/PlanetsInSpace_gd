@@ -43,12 +43,13 @@ namespace PlanetsInSpace.Map.Camera
             Print("CameraController_Map start..");
             Print(this.Name);
 
+            panObject = this;
             rotationObject = this.GetChild<Node3D>(0);
             zoomObject = this.GetChild<Node3D>(0).GetChild<Node3D>(0);
             //var initiate = Instance;
 
 
-
+            Print("PanObject: " + panObject.Name);
             Print("RotationObject: " + rotationObject.Name);
             Print("ZoomObject: " + zoomObject.Name);
 
@@ -68,30 +69,38 @@ namespace PlanetsInSpace.Map.Camera
         public override void _Process(double delta)
         {
             ChangeZoom();
-            //    ChangePosition();
+            ChangePosition();
             //Print(this.Position.ToString());
             //this.Position = Vector3.Zero;
         }
 
-        //void ChangePosition()
-        //{
-        //    if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        //    {
-        //        float movementFactor = Mathf.Lerp(MinZoom, MaxZoom, zoomLevel);
-        //        float distance = PanSpeed * Time.deltaTime;
-        //        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        void ChangePosition()
+        {
 
-        //        float dampingFactor = Mathf.Max(Mathf.Abs(Input.GetAxis("Horizontal")), Mathf.Abs(Input.GetAxis("Vertical")));
+            float horizontalInput = 0;
+            float verticalInput = 0;
 
-        //        Transform.Translate(distance * dampingFactor * movementFactor * direction);
+            horizontalInput = Input.GetActionStrength("Right") - Input.GetActionStrength("Left");
+            verticalInput = Input.GetActionStrength("Down") - Input.GetActionStrength("Up");
 
-        //        ClampCameraPan();
-        //    }
-        //}
+            Print("horizontalInput: " + horizontalInput);
+            Print("verticalInput: " + verticalInput);
+
+            float movementFactor = Mathf.Lerp(MinZoom, MaxZoom, zoomLevel);
+            float distance = (float)(PanSpeed * GetProcessDeltaTime());
+
+            Vector3 direction = new Vector3(horizontalInput, 0, -verticalInput).Normalized();
+
+            float dampingFactor = Mathf.Max(Mathf.Abs(horizontalInput), Mathf.Abs(verticalInput));
+            Print("Direction: " + direction);
+            panObject.Position += distance * dampingFactor * movementFactor * direction;
+
+            //ClampCameraPan();
+        }
 
         //void ClampCameraPan()
         //{
-        //    Vector3 position = this.Transform.position;
+        //    Vector3 position = panObject.Position;
 
         //    if (Galaxy.Instance.GalaxyView == true)
         //    {
