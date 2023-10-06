@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://assets/scenes/universum.gd" id="1_ry8nj"]
 [ext_resource type="PackedScene" uid="uid://380owrqy2y7b" path="res://assets/buttons/quit/button_quit.tscn" id="2_db85r"]
-[ext_resource type="PackedScene" uid="uid://iqc4h07waywd" path="res://Star.tscn" id="2_mrkly"]
+[ext_resource type="PackedScene" uid="uid://iqc4h07waywd" path="res://assets/scenes/Star.tscn" id="2_mrkly"]
 [ext_resource type="PackedScene" uid="uid://cr3pmorfeagp" path="res://assets/buttons/main_menu/button_main_menu.tscn" id="3_n6d54"]
 [ext_resource type="Script" path="res://scripts/Space/Galaxy.cs" id="4_7ibpi"]
 [ext_resource type="Script" path="res://scripts/Camera/CameraController_Map.cs" id="5_gc251"]
@@ -28,7 +28,7 @@ offset_top = 1.0
 offset_right = 213.0
 offset_bottom = 32.0
 
-[node name="Galaxy" type="Node" parent="."]
+[node name="Galaxy" type="Node3D" parent="."]
 script = ExtResource("4_7ibpi")
 PlanetScene = ExtResource("2_mrkly")
 PercentageStarsCentre = 26
@@ -38,11 +38,11 @@ metadata/tttttttt = 0
 script = ExtResource("5_gc251")
 
 [node name="RotationObject" type="Node3D" parent="PanObject"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="ZoomObject" type="Node3D" parent="PanObject/RotationObject"]
 
 [node name="Camera3D" type="Camera3D" parent="PanObject/RotationObject/ZoomObject"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 current = true
 fov = 60.0
 near = 0.3
@@ -50,18 +50,20 @@ far = 1000.0
 
 [node name="Star" parent="." instance=ExtResource("2_mrkly")]
 transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -2.12234, -4.76837e-07, -5.01782)
+visible = false
 
 [node name="Star2" parent="." instance=ExtResource("2_mrkly")]
 transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, 3.59873, -4.76837e-07, 3.29069)
+visible = false
 
 [node name="Star3" parent="." instance=ExtResource("2_mrkly")]
 transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -9.25011, -4.76837e-07, 3.61899)
+visible = false
 
 [node name="Star4" parent="." instance=ExtResource("2_mrkly")]
 transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -9.34167, -4.76837e-07, -1.75762)
+visible = false
 
 [node name="Star5" parent="." instance=ExtResource("2_mrkly")]
 transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -8.79147, 0, 9.891)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.753563, 0, 0.657375, 0, 1, 0, -0.657375, 0, 0.753563, 0, 10.4825, -11.9344)
+visible = false

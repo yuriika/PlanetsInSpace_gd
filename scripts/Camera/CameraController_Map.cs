@@ -62,7 +62,8 @@ namespace PlanetsInSpace.Map.Camera
             zoomLevel = 0;
             rotationObject.RotationDegrees = new Vector3(ZoomedInAngle, 0, 0);
             currentAngle = rotationObject.Quaternion;
-            zoomObject.Position = new Vector3(0, 0, MinZoom);
+            zoomObject.Position = new Vector3(0, 0, -MinZoom);
+            GD.Print(MinZoom + " " + -MinZoom);
         }
 
         // _process is called once per frame
@@ -80,19 +81,19 @@ namespace PlanetsInSpace.Map.Camera
             float horizontalInput = 0;
             float verticalInput = 0;
 
-            horizontalInput = Input.GetActionStrength("Right") - Input.GetActionStrength("Left");
-            verticalInput = Input.GetActionStrength("Down") - Input.GetActionStrength("Up");
+            horizontalInput = Input.GetActionStrength("Left") - Input.GetActionStrength("Right");
+            verticalInput = Input.GetActionStrength("Up") - Input.GetActionStrength("Down");
 
-            Print("horizontalInput: " + horizontalInput);
-            Print("verticalInput: " + verticalInput);
+            //Print("horizontalInput: " + horizontalInput);
+            //Print("verticalInput: " + verticalInput);
 
             float movementFactor = Mathf.Lerp(MinZoom, MaxZoom, zoomLevel);
             float distance = (float)(PanSpeed * GetProcessDeltaTime());
 
-            Vector3 direction = new Vector3(horizontalInput, 0, -verticalInput).Normalized();
+            Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).Normalized();
 
             float dampingFactor = Mathf.Max(Mathf.Abs(horizontalInput), Mathf.Abs(verticalInput));
-            Print("Direction: " + direction);
+            //Print("Direction: " + direction);
             panObject.Position += distance * dampingFactor * movementFactor * direction;
 
             //ClampCameraPan();
@@ -124,21 +125,21 @@ namespace PlanetsInSpace.Map.Camera
             {
                 Print("Left");
             }
-            if (Input.IsActionJustReleased("ScrollDown"))
+            if (Input.IsActionJustReleased("ScrollUp"))
             {
                 zoomLevel = Mathf.Clamp(zoomLevel - ZoomFactor, 0, 1);
-                Print("Down");
-            }
-            if (Input.IsActionJustPressed("ScrollUp"))
-            {
-                zoomLevel = Mathf.Clamp(zoomLevel + ZoomFactor, 0, 1);
                 Print("Up");
             }
+            if (Input.IsActionJustPressed("ScrollDown"))
+            {
+                zoomLevel = Mathf.Clamp(zoomLevel + ZoomFactor, 0, 1);
+                Print("Down");
+            }
 
-            float zoom = Mathf.Lerp(MinZoom, MaxZoom, zoomLevel);
+            float zoom = Mathf.Lerp(-MinZoom, -MaxZoom, zoomLevel);
 
-            Print("ZoomLevel: " + zoomLevel);
-            Print("Zoom: " + zoom);
+            //Print("ZoomLevel: " + zoomLevel);
+            //Print("Zoom: " + zoom);
 
             var tween = zoomObject.CreateTween();
             if (tween.IsRunning())
@@ -148,7 +149,7 @@ namespace PlanetsInSpace.Map.Camera
 
             // Wechselt smooth zwischen Draufsicht und angewinkelter Sicht
             float zoomAngle = Mathf.Lerp(ZoomedInAngle, ZoomedOutAngle, zoomLevel);
-            Print("ZoomAngle: " + zoomAngle);
+            //Print("ZoomAngle: " + zoomAngle);
             rotationObject.RotationDegrees = new Vector3(zoomAngle, 0, 0);
 
         }
