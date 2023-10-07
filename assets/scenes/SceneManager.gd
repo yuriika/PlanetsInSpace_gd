@@ -2,17 +2,12 @@ extends Node
 
 @export var main_menu_scene:PackedScene
 @export var universe_scene:PackedScene
-@export var planet_scene:PackedScene
+@export var star_scene:PackedScene
 
 # Beim Hinzufügen einer Scene 
 # unbedingt auch ins Array unten hinzufügen!!
 
-var scenes:Dictionary = {
-	"main_menu_scene":main_menu_scene,
-	"universe_scene":universe_scene,
-	"planet_scene":planet_scene
-	#"":,
-}
+var scenes:Dictionary
 
 		
 # Called when the node enters the scene tree for the first time.
@@ -22,7 +17,7 @@ func _ready():
 	var _scenes:Dictionary = {
 		"main_menu_scene":main_menu_scene,
 		"universe_scene":universe_scene,
-		"planet_scene":planet_scene
+		"star_scene":star_scene
 		#"":,
 		}
 	scenes = _scenes

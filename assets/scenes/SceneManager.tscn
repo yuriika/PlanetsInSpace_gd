@@ -9,4 +9,4 @@
 script = ExtResource("1_irp2l")
 main_menu_scene = ExtResource("2_peij7")
 universe_scene = ExtResource("3_h56ni")
-planet_scene = ExtResource("4_74oa5")
+star_scene = ExtResource("4_74oa5")

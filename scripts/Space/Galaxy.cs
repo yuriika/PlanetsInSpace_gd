@@ -8,6 +8,7 @@ using diag = System.Diagnostics;
 namespace PlanetsInSpace.Map.Space;
 public partial class Galaxy : Node3D
 {
+    [Export] public string starSceneName = "star_scene";
     [Export] public int NumberOfStars { get; set; } = 299;
     [Export] public int MaximumRadius { get; set; } = 100;
     [Export] public int MinimumRadius { get; set; } = 0;
@@ -59,7 +60,7 @@ public partial class Galaxy : Node3D
         Debug.Flush();
         GD.Print("Galaxy start..");
 
-        planetScene = GDUtils.GetScene("planet_scene");
+        planetScene = GDUtils.GetScene(starSceneName);
         //var planet = PlanetScene.Instantiate();
         //AddChild(planet);
 
