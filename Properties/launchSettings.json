@@ -1,24 +1,24 @@
 {
   "profiles": {
-    "PlanetsInSpace_gd": {
-      "commandName": "Project",
-      "nativeDebugging": false,
-      "jsWebView2Debugging": false,
-      "sqlDebugging": false
-    },
-    "Debug with Console": {
-      "commandName": "Executable",
-      "executablePath": "C:\\Users\\yuri\\Desktop\\Godot_v4.2-dev5_mono_win64\\Godot_v4.2-dev5_mono_win64_console.exe",
-      "commandLineArgs": "--path .",
-      "workingDirectory": ".",
-      "nativeDebugging": true
-    },
-    "Debug without Console": {
-      "commandName": "Executable",
-      "executablePath": "C:\\Users\\yuri\\Desktop\\Godot_v4.2-dev5_mono_win64\\Godot_v4.2-dev5_mono_win64.exe",
-      "commandLineArgs": "--path .",
-      "workingDirectory": ".",
-      "nativeDebugging": true
-    }
+	"PlanetsInSpace_gd": {
+	  "commandName": "Project",
+	  "nativeDebugging": false,
+	  "jsWebView2Debugging": false,
+	  "sqlDebugging": false
+	},
+	"Debug with Console": {
+	  "commandName": "Executable",
+	  "executablePath": "C:\\Users\\yuri\\Desktop\\Godot_v4.2-dev5_mono_win64\\Godot_v4.2-dev5_mono_win64_console.exe",
+	  "commandLineArgs": "--path .",
+	  "workingDirectory": ".",
+	  "nativeDebugging": true
+	},
+	"Debug without Console": {
+	  "commandName": "Executable",
+	  "executablePath": "C:\\Users\\yuri\\Desktop\\Godot_v4.2-dev5_mono_win64\\Godot_v4.2-dev5_mono_win64.exe",
+	  "commandLineArgs": "--path .",
+	  "workingDirectory": ".",
+	  "nativeDebugging": true
+	}
   }
 }

@@ -1,6 +1,7 @@
 extends Node3D
 
-@export var planet_scene:PackedScene
+#@export var planet_scene:PackedScene
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("universum start..")

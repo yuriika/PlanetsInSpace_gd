@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://daa6dae14j441"]
+[gd_scene load_steps=14 format=3 uid="uid://daa6dae14j441"]
 
 [ext_resource type="Script" path="res://assets/scenes/universum.gd" id="1_ry8nj"]
 [ext_resource type="PackedScene" uid="uid://380owrqy2y7b" path="res://assets/buttons/quit/button_quit.tscn" id="2_db85r"]
@@ -6,12 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://cr3pmorfeagp" path="res://assets/buttons/main_menu/button_main_menu.tscn" id="3_n6d54"]
 [ext_resource type="Script" path="res://scripts/Space/Galaxy.cs" id="4_7ibpi"]
 [ext_resource type="Script" path="res://scripts/Camera/CameraController_Map.cs" id="5_gc251"]
-[ext_resource type="Shader" path="res://assets/scenes/universumSky.gdshader" id="7_pefrb"]
+[ext_resource type="Material" uid="uid://bym0dgpurc2ib" path="res://assets/material/star_owned_material.tres" id="6_78w5f"]
+[ext_resource type="Shader" path="res://assets/shader/universumSky.gdshader" id="7_pefrb"]
 [ext_resource type="Texture2D" uid="uid://bmha6ytttx8kn" path="res://assets/skybox/SpaceSky1.png" id="8_qvvfm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7s7mf"]
 shader = ExtResource("7_pefrb")
-shader_parameter/bg_color = Color(0.568627, 0.568627, 0.568627, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
 shader_parameter/skyTexture = ExtResource("8_qvvfm")
 
 [sub_resource type="Sky" id="Sky_455ej"]
@@ -25,13 +26,20 @@ ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_sky_contribution = 0.5
 reflected_light_source = 2
 sdfgi_bounce_feedback = 0.74
-glow_hdr_scale = 4.0
+glow_enabled = true
+glow_intensity = 5.15
+glow_strength = 2.0
+glow_bloom = 1.0
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0175
 
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_6n6l7"]
+dof_blur_far_transition = 6292.65
+dof_blur_near_distance = 162.46
+dof_blur_near_transition = -1.0
+
 [node name="Universum" type="Node3D"]
 script = ExtResource("1_ry8nj")
-planet_scene = ExtResource("2_mrkly")
 
 [node name="Quit" parent="." instance=ExtResource("2_db85r")]
 
@@ -43,8 +51,8 @@ offset_bottom = 32.0
 
 [node name="Galaxy" type="Node3D" parent="."]
 script = ExtResource("4_7ibpi")
-PlanetScene = ExtResource("2_mrkly")
 PercentageStarsCentre = 26
+StarOwnedMaterial = ExtResource("6_78w5f")
 metadata/tttttttt = 0
 
 [node name="PanObject" type="Node3D" parent="."]
@@ -82,3 +90,4 @@ visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4uimc")
+camera_attributes = SubResource("CameraAttributesPractical_6n6l7")
