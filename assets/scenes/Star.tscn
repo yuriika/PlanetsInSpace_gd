@@ -1,6 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://iqc4h07waywd"]
+[gd_scene load_steps=11 format=3 uid="uid://iqc4h07waywd"]
 
-[ext_resource type="Material" uid="uid://dng6fsukhpl41" path="res://assets/material/star_normal_material.tres" id="1_3eta2"]
+[ext_resource type="Shader" path="res://assets/scenes/Star.gdshader" id="1_lkhj5"]
+
+[sub_resource type="Gradient" id="Gradient_hh7tj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qu7lu"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jhai3"]
+color_ramp = SubResource("Gradient_hh7tj")
+noise = SubResource("FastNoiseLite_qu7lu")
+
+[sub_resource type="Gradient" id="Gradient_dynhg"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sg311"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0ab0f"]
+color_ramp = SubResource("Gradient_dynhg")
+noise = SubResource("FastNoiseLite_sg311")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cohpj"]
+render_priority = 0
+shader = ExtResource("1_lkhj5")
+shader_parameter/Glow_Power = 3.0
+shader_parameter/Lightness_Difference = 3.0
+shader_parameter/Sun_Color = Color(0.917647, 0.933333, 0.0235294, 1)
+shader_parameter/waveSpeed = 0.1
+shader_parameter/fresnel = 1.0
+shader_parameter/scale = 0.01
+shader_parameter/blendSharpness = 0.0
+shader_parameter/voronoi_noise = SubResource("NoiseTexture2D_0ab0f")
+shader_parameter/emission_noise = SubResource("NoiseTexture2D_jhai3")
 
 [sub_resource type="SphereMesh" id="SphereMesh_3vs78"]
 
@@ -10,7 +40,7 @@ data = PackedVector3Array(0, 0.5, 0, 0, 0.5, 0, 0, 0.4977, 0.0475, 0, 0.5, 0, 0.
 [node name="Star" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = ExtResource("1_3eta2")
+material_override = SubResource("ShaderMaterial_cohpj")
 mesh = SubResource("SphereMesh_3vs78")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]

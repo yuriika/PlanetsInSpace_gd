@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://daa6dae14j441"]
 
-[ext_resource type="Script" path="res://assets/scenes/universum.gd" id="1_ry8nj"]
+[ext_resource type="Script" path="res://assets/scenes/scripts/universum.gd" id="1_efjvl"]
 [ext_resource type="PackedScene" uid="uid://380owrqy2y7b" path="res://assets/buttons/quit/button_quit.tscn" id="2_db85r"]
 [ext_resource type="PackedScene" uid="uid://iqc4h07waywd" path="res://assets/scenes/Star.tscn" id="2_mrkly"]
 [ext_resource type="PackedScene" uid="uid://cr3pmorfeagp" path="res://assets/buttons/main_menu/button_main_menu.tscn" id="3_n6d54"]
@@ -39,7 +39,7 @@ dof_blur_near_distance = 162.46
 dof_blur_near_transition = -1.0
 
 [node name="Universum" type="Node3D"]
-script = ExtResource("1_ry8nj")
+script = ExtResource("1_efjvl")
 
 [node name="Quit" parent="." instance=ExtResource("2_db85r")]
 
@@ -75,6 +75,7 @@ visible = false
 
 [node name="Star2" parent="." instance=ExtResource("2_mrkly")]
 transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, 3.59873, -4.76837e-07, 9.07102)
+visible = false
 
 [node name="Star3" parent="." instance=ExtResource("2_mrkly")]
 transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -0.715199, -8.72893, 38.9119)

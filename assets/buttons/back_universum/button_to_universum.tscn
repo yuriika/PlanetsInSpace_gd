@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5xcetoixhwkd"]
 
-[ext_resource type="Script" path="res://assets/buttons/back_universum/button_to_universum.gd" id="1_n6jpv"]
 [ext_resource type="Texture2D" uid="uid://eyl8n4og7iw4" path="res://assets/textures/map/Icon_UniverseMap.png" id="1_ypnac"]
+[ext_resource type="Script" path="res://assets/buttons/back_universum/button_to_universum.gd" id="2_2gy4f"]
 
 [node name="button_to_universum" type="Button"]
 anchors_preset = 15
@@ -15,6 +15,6 @@ text = "Universum"
 icon = ExtResource("1_ypnac")
 expand_icon = true
 language = "de_DE"
-script = ExtResource("1_n6jpv")
+script = ExtResource("2_2gy4f")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

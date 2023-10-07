@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh5efwpd74q41"]
+
+[ext_resource type="Texture2D" uid="uid://cj3y481yiyrvj" path="res://assets/textures/map/selectionbox1.png" id="1_topyh"]
+
+[node name="SelectionNode" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Selectionbox1" type="Sprite2D" parent="."]
+texture = ExtResource("1_topyh")
