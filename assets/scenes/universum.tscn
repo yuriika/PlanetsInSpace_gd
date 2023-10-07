@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://daa6dae14j441"]
+[gd_scene load_steps=12 format=3 uid="uid://daa6dae14j441"]
 
 [ext_resource type="Script" path="res://assets/scenes/universum.gd" id="1_ry8nj"]
 [ext_resource type="PackedScene" uid="uid://380owrqy2y7b" path="res://assets/buttons/quit/button_quit.tscn" id="2_db85r"]
@@ -7,10 +7,12 @@
 [ext_resource type="Script" path="res://scripts/Space/Galaxy.cs" id="4_7ibpi"]
 [ext_resource type="Script" path="res://scripts/Camera/CameraController_Map.cs" id="5_gc251"]
 [ext_resource type="Shader" path="res://assets/scenes/universumSky.gdshader" id="7_pefrb"]
+[ext_resource type="Texture2D" uid="uid://bmha6ytttx8kn" path="res://assets/skybox/SpaceSky1.png" id="8_qvvfm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7s7mf"]
 shader = ExtResource("7_pefrb")
-shader_parameter/bg_color = null
+shader_parameter/bg_color = Color(0.568627, 0.568627, 0.568627, 1)
+shader_parameter/skyTexture = ExtResource("8_qvvfm")
 
 [sub_resource type="Sky" id="Sky_455ej"]
 sky_material = SubResource("ShaderMaterial_7s7mf")
@@ -18,19 +20,18 @@ sky_material = SubResource("ShaderMaterial_7s7mf")
 [sub_resource type="Environment" id="Environment_4uimc"]
 background_mode = 2
 sky = SubResource("Sky_455ej")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.5
+reflected_light_source = 2
+sdfgi_bounce_feedback = 0.74
+glow_hdr_scale = 4.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0175
 
 [node name="Universum" type="Node3D"]
 script = ExtResource("1_ry8nj")
 planet_scene = ExtResource("2_mrkly")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(0.485849, 0.36788, 0.792852, -0.341461, 0.914911, -0.215272, -0.804584, -0.166138, 0.570125, 14.7906, -9.80318, 4.73893)
-light_color = Color(0.721569, 0.721569, 0, 1)
-light_energy = 16.0
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
-spot_range = 52.6671
-spot_angle = 44.8006
 
 [node name="Quit" parent="." instance=ExtResource("2_db85r")]
 
@@ -65,19 +66,18 @@ transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -2.12234, -
 visible = false
 
 [node name="Star2" parent="." instance=ExtResource("2_mrkly")]
-transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, 3.59873, -4.76837e-07, 3.29069)
-visible = false
+transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, 3.59873, -4.76837e-07, 9.07102)
 
 [node name="Star3" parent="." instance=ExtResource("2_mrkly")]
-transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -9.25011, -4.76837e-07, 3.61899)
+transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -0.715199, -8.72893, 38.9119)
 visible = false
 
 [node name="Star4" parent="." instance=ExtResource("2_mrkly")]
-transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -9.34167, -4.76837e-07, -1.75762)
+transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -2.43258, 6.35474, 14.5329)
 visible = false
 
 [node name="Star5" parent="." instance=ExtResource("2_mrkly")]
-transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -8.79147, 0, 9.891)
+transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -6.5805, -6.53825, 14.912)
 visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

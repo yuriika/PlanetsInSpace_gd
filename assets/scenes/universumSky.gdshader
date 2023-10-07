@@ -1,6 +1,7 @@
 shader_type sky;
 
 uniform vec3 bg_color: source_color;
+uniform sampler2D skyTexture;
 
 float rand(vec2 st) {
     return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
@@ -31,5 +32,10 @@ void sky() {
 		color = r * (0.25 * sin(TIME * (r * 0.8) + 720.0 * r) + 0.2);
 	}
 	
-	COLOR = bg_color + vec3(color);
+	//var img="";
+	//get_parent().get_parent().get_node("Envioronment")
+	
+	vec3 color3 = bg_color + vec3(color);
+	//COLOR = texture(skyTexture, SKY_COORDS).rgb + color3;
+	COLOR = color3;
 }
