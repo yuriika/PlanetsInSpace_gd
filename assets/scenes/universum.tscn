@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://daa6dae14j441"]
+[gd_scene load_steps=11 format=3 uid="uid://daa6dae14j441"]
 
 [ext_resource type="Script" path="res://assets/scenes/universum.gd" id="1_ry8nj"]
 [ext_resource type="PackedScene" uid="uid://380owrqy2y7b" path="res://assets/buttons/quit/button_quit.tscn" id="2_db85r"]
@@ -6,6 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://cr3pmorfeagp" path="res://assets/buttons/main_menu/button_main_menu.tscn" id="3_n6d54"]
 [ext_resource type="Script" path="res://scripts/Space/Galaxy.cs" id="4_7ibpi"]
 [ext_resource type="Script" path="res://scripts/Camera/CameraController_Map.cs" id="5_gc251"]
+[ext_resource type="Shader" path="res://assets/scenes/universumSky.gdshader" id="7_pefrb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7s7mf"]
+shader = ExtResource("7_pefrb")
+shader_parameter/bg_color = null
+
+[sub_resource type="Sky" id="Sky_455ej"]
+sky_material = SubResource("ShaderMaterial_7s7mf")
+
+[sub_resource type="Environment" id="Environment_4uimc"]
+background_mode = 2
+sky = SubResource("Sky_455ej")
 
 [node name="Universum" type="Node3D"]
 script = ExtResource("1_ry8nj")
@@ -67,3 +79,6 @@ visible = false
 [node name="Star5" parent="." instance=ExtResource("2_mrkly")]
 transform = Transform3D(3.70983, 0, 0, 0, 3.50996, 0, 0, 0, 3.23415, -8.79147, 0, 9.891)
 visible = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4uimc")
