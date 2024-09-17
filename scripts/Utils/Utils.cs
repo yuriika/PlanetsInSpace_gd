@@ -81,7 +81,6 @@ public partial class Utils : Node
         var sphere = starScene.Instantiate<Node3D>();
         sphere.Name = name;
         sphere.Position = position;
-
         parent?.AddChild(sphere);
 
         //TODO

@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4e1mthn58i0w"]
+[gd_scene load_steps=6 format=3 uid="uid://b4e1mthn58i0w"]
 
 [ext_resource type="Script" path="res://assets/scenes/scripts/SceneManager.gd" id="1_irp2l"]
 [ext_resource type="PackedScene" uid="uid://rnkxjm5mb385" path="res://assets/menu/main_menu/main_menu.tscn" id="2_peij7"]
 [ext_resource type="PackedScene" uid="uid://daa6dae14j441" path="res://assets/scenes/universum.tscn" id="3_h56ni"]
 [ext_resource type="PackedScene" uid="uid://iqc4h07waywd" path="res://assets/scenes/Star.tscn" id="4_74oa5"]
+[ext_resource type="PackedScene" uid="uid://bh5efwpd74q41" path="res://assets/scenes/selection_node.tscn" id="5_oj1to"]
 
 [node name="SceneManager" type="Node"]
 script = ExtResource("1_irp2l")
 main_menu_scene = ExtResource("2_peij7")
 universe_scene = ExtResource("3_h56ni")
 star_scene = ExtResource("4_74oa5")
+selectedStar_scene = ExtResource("5_oj1to")

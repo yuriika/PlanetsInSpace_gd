@@ -1,7 +1,8 @@
 using Godot;
 using PlanetsInSpace.Map;
 
-public partial class GDUtils : Singleton<Node>
+
+public static class GDUtils
 {
     public static PackedScene GetScene(string scene)
     {

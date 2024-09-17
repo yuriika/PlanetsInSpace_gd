@@ -11,6 +11,7 @@
         {
             PlanetName = name;
             PlanetType = type;
+
         }
     }
 }

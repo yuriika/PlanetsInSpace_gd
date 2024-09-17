@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using static Godot.GD;
@@ -8,34 +9,27 @@ using diag = System.Diagnostics;
 namespace PlanetsInSpace.Map.Space;
 public partial class Galaxy : Node3D
 {
+    // Die SceneNamen strings sind die exportierten var's in SceneManager.gd, 
+    // dort sind die Scenen dazu hinterlegt
     [Export] public string starSceneName = "star_scene";
+    [Export] public string selectedStarIconSceneName = "selectedStar_scene";
     [Export] public int NumberOfStars { get; set; } = 299;
     [Export] public int MaximumRadius { get; set; } = 100;
     [Export] public int MinimumRadius { get; set; } = 0;
     [Export] public float MinDistBetweenStars { get; set; } = 1f;
-
     [Export] public uint SeedNumber = 100;
     [Export(PropertyHint.Range, "0,100")] public int NumberOfArms = 2;
-
     [Export] public int PercentageStarsCentre = 25;
-
     [Export] public string[] AvailablePlanetTypes = { "Barren", "Terran", "Gas Giant" };
-
     public Dictionary<Star, Node3D> StarToObjectMap { get; protected set; }
-
     [Export] public bool GalaxyView { get; set; }
-
-    [Export] public Node3D SelectionIcon;
-
+    [Export] public Control SelectionIcon;
     [Export] public Label StarNames;
-
     List<string> _availableStarNames;
-
     [Export] public Material StarOwnedMaterial;
-
     RandomNumberGenerator Random;
-
     PackedScene planetScene;
+    PackedScene selectedStarNodeScene;
 
     float _percent;
     float _starsInCentre;
@@ -61,6 +55,8 @@ public partial class Galaxy : Node3D
         GD.Print("Galaxy start..");
 
         planetScene = GDUtils.GetScene(starSceneName);
+        selectedStarNodeScene = GDUtils.GetScene(selectedStarIconSceneName);
+
         //var planet = PlanetScene.Instantiate();
         //AddChild(planet);
 
@@ -71,7 +67,7 @@ public partial class Galaxy : Node3D
         Print("Time spent in SanityChecks(): " + watch.Elapsed);
 
         watch.Start();
-        //CreateSelectionIcon();
+        CreateSelectionIcon();
         watch.Stop();
         Print("Time spent in CreateSelectionIcon(): " + watch.Elapsed);
 
@@ -85,6 +81,7 @@ public partial class Galaxy : Node3D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+
     }
 
     // Checks if the values are ok before create the universe
@@ -147,6 +144,14 @@ public partial class Galaxy : Node3D
         //Print("Entering CreateStarObject()...");
         Node3D starGO = Utils.CreateSphereObject(starData.StarID + starData.starName, cartPosition, planetScene, this);
         //CreatePlanetData(starData);
+
+        // InputEvent wird festgelegt auf starData.OnInputEvent, 
+        // und zu den normalen Prametern wird zusätzlich die Methode MoveSelectionIcon mit übergeben, 
+        //die wiederum aus dem Event heraus aufgerufen werden kann, um das SelectionIcon zu bewegen
+        starGO.GetNode<StaticBody3D>("MeshInstance3D/StaticBody3D").InputEvent +=
+                        (camera, inputEvent, eventPosition, normal, shapeIdx) =>
+                                    starData.OnInputEvent(camera, inputEvent, eventPosition, normal, shapeIdx, (Vector3 vector) => MoveSelectionIcon(vector));
+
         SetStarMaterial(starGO, starData);
         StarToObjectMap.Add(starData, starGO);
     }
@@ -183,8 +188,10 @@ public partial class Galaxy : Node3D
         //_availableStarNames = TextAssetManager.TextToList(StarNames);
     }
 
+
     Star CreateStarData(int starCount)
     {
+        // TODO
         //Print("Entering CreateStarData()...");
         string name;
         int randomIndex;
@@ -230,6 +237,22 @@ public partial class Galaxy : Node3D
 
             star.PlanetList.Add(planetData);
         }
+    }
+
+    void CreateSelectionIcon()
+    {
+        SelectionIcon = selectedStarNodeScene.Instantiate<Control>();
+        SelectionIcon.Scale = SelectionIcon.Scale * 2.5f;
+        SelectionIcon.Visible = false;
+        this.AddChild(SelectionIcon);
+    }
+
+    public void MoveSelectionIcon(Vector3 targetPosition)
+    {
+        Debug.WriteLine("Setze Icon on " + targetPosition);
+        //SelectionIcon.SetActive(true);
+        //SelectionIcon.transform.position = hit.transform.position;
+        //SelectionIcon.transform.rotation = Camera.CameraController_Map.currentAngle;
     }
 }
 

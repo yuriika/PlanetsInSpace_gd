@@ -1,5 +1,9 @@
 using Godot;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace PlanetsInSpace.Map.Space;
 public class Star
@@ -23,5 +27,16 @@ public class Star
         PlanetList = new List<Planet>();
 
         StarPosition = new Vector3();
+    }
+
+    public void OnInputEvent(Node camera, InputEvent inputEvent, Vector3 eventPosition, Vector3 normal, long shapeIdx, Action<Vector3> moveSelectionIcon)
+    {
+        if (inputEvent is InputEventMouseButton && inputEvent.IsActionReleased("MouseLeftClick"))
+        {
+            Debug.WriteLine("Clicking on star " + starName + " with " + NumberOfPlanets + " planets");
+
+            moveSelectionIcon(eventPosition);
+        }
+
     }
 }
