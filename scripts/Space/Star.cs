@@ -17,6 +17,7 @@ public class Star
     public List<Planet> PlanetList;
 
     public Vector3 StarPosition { get; set; }
+    public Node3D StarNode { get; set; }
 
     public Star(int id, string name, int planets)
     {
@@ -29,13 +30,13 @@ public class Star
         StarPosition = new Vector3();
     }
 
-    public void OnInputEvent(Node camera, InputEvent inputEvent, Vector3 eventPosition, Vector3 normal, long shapeIdx, Action<Vector3> moveSelectionIcon)
+    public void OnInputEvent(Node camera, InputEvent inputEvent, Vector3 eventPosition, Vector3 normal, long shapeIdx, Action<Vector2, Node3D> moveSelectionIcon)
     {
         if (inputEvent is InputEventMouseButton && inputEvent.IsActionReleased("MouseLeftClick"))
         {
-            Debug.WriteLine("Clicking on star " + starName + " with " + NumberOfPlanets + " planets");
+            Debug.WriteLine("Clicking on star " + starName + " with " + NumberOfPlanets + " planets; eventPosition: " + eventPosition.X + ", " + eventPosition.Y + ", " + eventPosition.Z);
 
-            moveSelectionIcon(eventPosition);
+            moveSelectionIcon(((InputEventMouseButton)inputEvent).Position, StarNode);
         }
 
     }

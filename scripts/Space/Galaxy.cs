@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ public partial class Galaxy : Node3D
     [Export] public string[] AvailablePlanetTypes = { "Barren", "Terran", "Gas Giant" };
     public Dictionary<Star, Node3D> StarToObjectMap { get; protected set; }
     [Export] public bool GalaxyView { get; set; }
-    [Export] public Control SelectionIcon;
+    [Export] public Sprite3D LastSelectedSelectionIcon = null;
     [Export] public Label StarNames;
     List<string> _availableStarNames;
     [Export] public Material StarOwnedMaterial;
@@ -67,7 +68,7 @@ public partial class Galaxy : Node3D
         Print("Time spent in SanityChecks(): " + watch.Elapsed);
 
         watch.Start();
-        CreateSelectionIcon();
+        //CreateSelectionIcon();
         watch.Stop();
         Print("Time spent in CreateSelectionIcon(): " + watch.Elapsed);
 
@@ -109,6 +110,7 @@ public partial class Galaxy : Node3D
             //Print("Created " + starData.starName + " with " + starData.numberOfPlanets + " planets");
 
             Vector3 cartPosition = Utils.RandomPosition(MinimumRadius, MaximumRadius);
+            starData.StarPosition = cartPosition;
 
             //Collider[] positionCollider = Physics.OverlapSphere(cartPosition, MinDistBetweenStars);
 
@@ -143,14 +145,16 @@ public partial class Galaxy : Node3D
     {
         //Print("Entering CreateStarObject()...");
         Node3D starGO = Utils.CreateSphereObject(starData.StarID + starData.starName, cartPosition, planetScene, this);
+        starData.StarNode = starGO;
         //CreatePlanetData(starData);
 
         // InputEvent wird festgelegt auf starData.OnInputEvent, 
         // und zu den normalen Prametern wird zusätzlich die Methode MoveSelectionIcon mit übergeben, 
         //die wiederum aus dem Event heraus aufgerufen werden kann, um das SelectionIcon zu bewegen
         starGO.GetNode<StaticBody3D>("MeshInstance3D/StaticBody3D").InputEvent +=
-                        (camera, inputEvent, eventPosition, normal, shapeIdx) =>
-                                    starData.OnInputEvent(camera, inputEvent, eventPosition, normal, shapeIdx, (Vector3 vector) => MoveSelectionIcon(vector));
+            (camera, inputEvent, eventPosition, normal, shapeIdx) =>
+                starData.OnInputEvent(camera, inputEvent, eventPosition, normal, shapeIdx,
+                                        (Vector2 vector, Node3D node) => MoveSelectionIcon(vector, node));
 
         SetStarMaterial(starGO, starData);
         StarToObjectMap.Add(starData, starGO);
@@ -239,20 +243,22 @@ public partial class Galaxy : Node3D
         }
     }
 
-    void CreateSelectionIcon()
-    {
-        SelectionIcon = selectedStarNodeScene.Instantiate<Control>();
-        SelectionIcon.Scale = SelectionIcon.Scale * 2.5f;
-        SelectionIcon.Visible = false;
-        this.AddChild(SelectionIcon);
-    }
+    // void CreateSelectionIcon()
+    // {
+    //     SelectionIcon = selectedStarNodeScene.Instantiate<Control>();
+    //     SelectionIcon.Scale = SelectionIcon.Scale * 2.5f;
+    //     SelectionIcon.Visible = false;
+    //     this.AddChild(SelectionIcon);
+    // }
 
-    public void MoveSelectionIcon(Vector3 targetPosition)
+
+    public void MoveSelectionIcon(Vector2 targetPosition, Node3D node)
     {
-        Debug.WriteLine("Setze Icon on " + targetPosition);
-        //SelectionIcon.SetActive(true);
-        //SelectionIcon.transform.position = hit.transform.position;
-        //SelectionIcon.transform.rotation = Camera.CameraController_Map.currentAngle;
+        //Debug.WriteLine("Setze Icon on " + targetPosition);
+        if (LastSelectedSelectionIcon != null)
+            LastSelectedSelectionIcon.Visible = false;
+        LastSelectedSelectionIcon = ((Sprite3D)node.GetNode("Selectionbox"));
+        LastSelectedSelectionIcon.Visible = true;
     }
 }
 

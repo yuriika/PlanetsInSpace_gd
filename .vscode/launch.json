@@ -2,10 +2,24 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch",
+      "name": "Launch Windows",
       "type": "coreclr",
       "request": "launch",
       "program": "${config:godot-dotnet-tools.executablePath}",
+      "preLaunchTask": "build",
+      "args": [
+        "--path",
+        "${workspaceRoot}"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+    },
+    {
+      "name": "Launch Linux",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "/home/yuri/source/Apps/Godot_v4.3-stable_mono_linux_x86_64/Godot_v4.3-stable_mono_linux.x86_64",
       "preLaunchTask": "build",
       "args": [
         "--path",

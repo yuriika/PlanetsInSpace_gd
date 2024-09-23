@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://iqc4h07waywd"]
+[gd_scene load_steps=12 format=3 uid="uid://iqc4h07waywd"]
 
 [ext_resource type="Shader" path="res://assets/scenes/Star.gdshader" id="1_lkhj5"]
+[ext_resource type="Texture2D" uid="uid://cj3y481yiyrvj" path="res://assets/textures/map/selectionbox1.png" id="2_x51rq"]
 
 [sub_resource type="Gradient" id="Gradient_hh7tj"]
 
@@ -47,3 +48,9 @@ mesh = SubResource("SphereMesh_3vs78")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_g8skd")
+
+[node name="Selectionbox" type="Sprite3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+visible = false
+billboard = 1
+texture = ExtResource("2_x51rq")
