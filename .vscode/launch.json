@@ -1,53 +1,66 @@
 {
   "version": "0.2.0",
   "configurations": [
+    // For these launch configurations to work, you need to setup a GODOT
+    // environment variable. On mac or linux, this can be done by adding
+    // the following to your .zshrc, .bashrc, or .bash_profile file:
+    // export GODOT="/Applications/Godot.app/Contents/MacOS/Godot"
     {
-      "name": "Launch Windows",
+      "name": "🕹 Debug Game",
       "type": "coreclr",
       "request": "launch",
-      "program": "${config:godot-dotnet-tools.executablePath}",
       "preLaunchTask": "build",
-      "args": [
-        "--path",
-        "${workspaceRoot}"
-      ],
+      "program": "${env:GODOT}",
+      "args": [],
       "cwd": "${workspaceFolder}",
-      "console": "internalConsole",
       "stopAtEntry": false,
+      "console": "internalConsole",
+      "brokeredServicePipeName": "undefined"
     },
+    // Debug the scene that matches the name of the currently open *.cs file
+    // (if there's a scene with the same name in the same directory).
     {
-      "name": "Launch Linux",
+      "name": "🎭 Debug Current Scene",
       "type": "coreclr",
       "request": "launch",
-      "program": "/home/yuri/source/Apps/Godot_v4.3-stable_mono_linux_x86_64/Godot_v4.3-stable_mono_linux.x86_64",
       "preLaunchTask": "build",
+      "program": "${env:GODOT}",
       "args": [
-        "--path",
-        "${workspaceRoot}"
+        "${fileDirname}/${fileBasenameNoExtension}.tscn"
       ],
       "cwd": "${workspaceFolder}",
-      "console": "internalConsole",
       "stopAtEntry": false,
+      "console": "integratedTerminal"
     },
     {
-      "name": "Launch Editor",
+      "name": "🧪 Debug Tests",
       "type": "coreclr",
       "request": "launch",
-      "program": "${config:godot-dotnet-tools.executablePath}",
       "preLaunchTask": "build",
+      "program": "${env:GODOT}",
       "args": [
-        "--path",
-        "${workspaceRoot}",
-        "--editor"
+        // These command line flags are used by GoDotTest to run tests.
+        "--run-tests",
+        "--quit-on-finish"
       ],
       "cwd": "${workspaceFolder}",
-      "console": "internalConsole",
-      "stopAtEntry": false
+      "stopAtEntry": false,
+      "console": "integratedTerminal"
     },
     {
-      "name": "Attach to Process",
+      "name": "🔬 Debug Current Test",
       "type": "coreclr",
-      "request": "attach"
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${env:GODOT}",
+      "args": [
+        // These command line flags are used by GoDotTest to run tests.
+        "--run-tests=${fileBasenameNoExtension}",
+        "--quit-on-finish"
+      ],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "integratedTerminal"
     }
   ]
 }
